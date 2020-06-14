@@ -1,3 +1,4 @@
+import inspect
 class Node:
     def __init__(self, value):
         self.value = value
@@ -75,7 +76,7 @@ def intersection(llist_1, llist_2):
 
 def test_1():
     # Test case 1
-
+    print("Executing {}".format(inspect.stack()[0].function))
     linked_list_1 = LinkedList()
     linked_list_2 = LinkedList()
 
@@ -91,10 +92,14 @@ def test_1():
     print (union(linked_list_1,linked_list_2))
     print (intersection(linked_list_1,linked_list_2))
 
+    #output should be
+    # 32 -> 65 -> 2 -> 35 -> 3 -> 4 -> 6 -> 1 -> 9 -> 11 -> 21 ->
+    # 6 -> 4 -> 6 -> 21 ->
+
 
 def test_2():
     # Test case 2
-
+    print("Executing {}".format(inspect.stack()[0].function))
     linked_list_3 = LinkedList()
     linked_list_4 = LinkedList()
 
@@ -109,8 +114,12 @@ def test_2():
 
     print (union(linked_list_3,linked_list_4))
     print (intersection(linked_list_3,linked_list_4))
+    #output should be
+    # 65 -> 2 -> 35 -> 3 -> 4 -> 6 -> 1 -> 7 -> 8 -> 9 -> 11 -> 21 -> 23 ->
+    #
 
 def test_3():
+    print("Executing {}".format(inspect.stack()[0].function))
     linked_list_1 = LinkedList()
     linked_list_2 = LinkedList()
 
@@ -119,6 +128,9 @@ def test_3():
     
     print(union(linked_list_1, linked_list_2))
     print(intersection(linked_list_1, linked_list_2))
+    #output should be
+    # 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 ->
+    #
 
 if __name__ == "__main__":
     test_1()
