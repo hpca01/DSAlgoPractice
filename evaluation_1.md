@@ -7,4 +7,4 @@
 
 2. You also need to explain the efficiency (time and space) of your solution.
 
-    As far as the documentation goes on https://wiki.python.org/moin/TimeComplexity the stated time complexity is O(1) for each of the operations of dict except for iteration and copying. My code does neither, so I assert that my time complexity is O(1) and space complexity is related to the hash function in CPython. Since we are limiting the entries to at max 5, the space complexity would be constant O(1)
+    As far as the documentation goes on https://wiki.python.org/moin/TimeComplexity the stated time complexity is O(1) for each of the operations of dict except for iteration and copying. My code does neither, so I assert that my time complexity is O(1) and space complexity is related to the hash function in CPython. If I had to guess, I would say the space complexity would be O(n) as general hashmaps are implemented with arrays underneath.

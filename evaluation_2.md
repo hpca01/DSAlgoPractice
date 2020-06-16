@@ -6,4 +6,4 @@
 
 2. You also need to explain the efficiency (time and space) of your solution.
 
-    The time complexity of my solution is O(n<sup>2</sup>) because we are traversing directory **and** subdirectory. In a worst case scenario if a directory had n subdirectories with each subdirectory having n subdirectories it would take O(n<sup>2</sup>) time to traverse. Space complexity is based on the call stack size, essentially it can be O(n<sup>2</sup>) if the aformentioned worst case scenario is assumed to be true.
+    The time complexity of my solution is O(n) because we are traversing `n` subdirectories inside the given directory. In a worst case scenario if a directory had n subdirectories with each subdirectory having k subdirectories it would take `O(n + k)` time to traverse, simplied into `O(n)`. Space complexity is based on the call stack size, essentially it can be `O(n)` if the aformentioned worst case scenario is assumed to be true.
