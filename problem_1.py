@@ -68,9 +68,18 @@ def test_3():
 
     print(f'Current Cache state: {our_cache} expected result is for it to be empty')
 
+def test_4():
+    '''0 capacity test case'''
+    our_cache = LRU_Cache(0)
 
+    [our_cache.set(None, 1) for _ in range(5)]
+
+    print(f'Current Cache state: {our_cache} expected result is for it to be empty')
+
+    
 
 if __name__ == "__main__":
     test_1()
     test_2()
     test_3()
+    test_4()

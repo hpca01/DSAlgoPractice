@@ -2,6 +2,7 @@ import sys
 from collections import defaultdict
 from pprint import pprint
 import heapq
+import inspect
 
 
 class Node:
@@ -31,8 +32,19 @@ class Tree:
         
         traverse(self.root)
     
+    def size(self):
+        def traverse(node):
+            if not node:
+                return 0
+            return 1 + traverse(node.left) + traverse(node.right)
+        num = traverse(self.root)
+        return num
+    
     def encode_char(self, char):
         rep = ""
+        if self.size() == 1:
+            #for exception case where only 1 node exists(if string passed is all 1 characters)
+            return '1'
         node = self.root
         while True:
             if node is None:
@@ -48,6 +60,8 @@ class Tree:
         return rep
     
     def decode_str(self, data:str):
+        if self.size() == 1:
+            return self.root.chars[0]*len(data)
         curr_node:Node = self.root
         output = ""
         i = 0
@@ -67,6 +81,8 @@ class Tree:
         return output
 
 def huffman_encoding(data:str):
+    if not data:
+        return None, None
     freq = defaultdict(lambda: 0)
     for char in data:
         freq[char] +=1
@@ -97,10 +113,13 @@ def huffman_encoding(data:str):
     return encoded, tree
 
 def huffman_decoding(data,tree:Tree):
+    if not data or not tree:
+        return None
     return tree.decode_str(data)
 
 def test_1():
     '''Sentence from Udacity problem description '''
+    print("Excecuting {}".format(inspect.stack()[0].function))
     sentence = 'AAAAAAABBBCCCCCCCDDEEEEEE'
     encoded, tree = huffman_encoding(sentence)
     decoded = huffman_decoding(encoded, tree)
@@ -111,6 +130,7 @@ def test_1():
 
 def test_2():
     '''Sentence with spaces'''
+    print("Excecuting {}".format(inspect.stack()[0].function))
     sentence = "The bird is the word"
     encoded, tree = huffman_encoding(sentence)
     decoded = huffman_decoding(encoded, tree)
@@ -121,6 +141,7 @@ def test_2():
 
 def test_3():
     '''Sentence w/ numbers'''
+    print("Excecuting {}".format(inspect.stack()[0].function))
     sentence = '125 North Mary Avenue'
     encoded, tree = huffman_encoding(sentence)
     decoded = huffman_decoding(encoded, tree)
@@ -129,7 +150,30 @@ def test_3():
     print(f'Decoded sentence: \n {decoded}')
     assert sentence == decoded, print(f'{sentence} =/= {decoded}')
 
+def test_4():
+    print("Excecuting {}".format(inspect.stack()[0].function))
+    sentence = '' # in python empty string is falsy
+    encoded, tree = huffman_encoding(sentence)
+    decoded = huffman_decoding(encoded, tree)
+    print(f'Sentence to be encoded: \n {sentence}')
+    print(f'Encoded sentence: \n {encoded}')
+    print(f'Decoded sentence: \n {decoded}')
+    assert decoded == None, print(f'{sentence} =/= {decoded}')
+
+def test_5():
+    '''Sentence w/ numbers'''
+    print("Excecuting {}".format(inspect.stack()[0].function))
+    sentence = 'aaaaaaa'
+    encoded, tree = huffman_encoding(sentence)
+    decoded = huffman_decoding(encoded, tree)
+    print(f'Sentence to be encoded: \n {sentence}')
+    print(f'Encoded sentence: \n {encoded}')
+    print(f'Decoded sentence: \n {decoded}')
+    assert sentence == decoded, print(f'{sentence} =/= {decoded}')
+
 if __name__ == "__main__":
+
+
     codes = {}
 
     a_great_sentence = "The bird is the word"
@@ -149,3 +193,5 @@ if __name__ == "__main__":
     test_1()
     test_2()
     test_3()
+    test_4()
+    test_5()
