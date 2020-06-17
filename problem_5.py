@@ -10,11 +10,11 @@ class Block:
       self.timestamp = timestamp
       self.data = data
       self.previous_hash = previous_hash
-      self.hash = self.calc_hash()
+      self.hash = self.calc_hash(self.data, self.timestamp)
     
-    def calc_hash(self):
+    def calc_hash(self, data, timestamp:datetime):
         sha = hashlib.sha256()
-        hash_str = "We are going to encode this string of data!".encode('utf-8')
+        hash_str = "{} - {}".format(data, timestamp).encode('UTF-8')
         sha.update(hash_str)
         return sha.hexdigest()
 
@@ -56,7 +56,7 @@ class BlockChain:
         output = ""
         curr = self.tail
         while curr:
-            output+=" Data: {} Time: {} \n".format(curr.data, curr.timestamp)
+            output+=" Data: {} Time: {} Hash: {} \n".format(curr.data, curr.timestamp, curr.hash)
             curr = curr.previous_hash
         return output
             
