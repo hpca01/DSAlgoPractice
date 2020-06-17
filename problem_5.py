@@ -56,7 +56,7 @@ class BlockChain:
         output = ""
         curr = self.tail
         while curr:
-            output+=" Data: {} Time: {} Hash: {} \n".format(curr.data, curr.timestamp, curr.hash)
+            output+=" Data: {} Time: {} Calculated Hash: {} \n".format(curr.data, curr.timestamp, curr.hash)
             curr = curr.previous_hash
         return output
             
