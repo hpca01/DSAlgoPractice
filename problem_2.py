@@ -1,43 +1,34 @@
 import os
 
-def walk(directory):
+def walk(extension, directory, output):
     if not os.path.exists(directory):
         print(f'Directory {directory} not found')
         return
-    print(directory)
+    if os.path.exists(directory) and os.path.splitext(directory)[1] == extension:
+        output.append(directory)
+        return
     for each in os.listdir(directory):
-        if os.path.isfile(os.path.join(directory, each)):
-            print(f'{os.path.join(directory, each)}')
+        fpth = os.path.join(directory, each)
+        _, file_ext = os.path.splitext(fpth)
+        if os.path.isfile(fpth) and file_ext == extension:
+            output.append(fpth)
         elif os.path.isdir(os.path.join(directory, each)):
-            walk(os.path.join(directory, each))
+            walk(extension, os.path.join(directory, each), output)
+
+def find_files(suffix, path):
+    filepaths = []
+    walk(suffix, path, filepaths)
+    return filepaths
 
 def test1():
-    walk('testdir')
-        # ./testdir
-        # ./testdir/subdir1
-        # ./testdir/subdir1/a.c
-        # ./testdir/subdir1/a.h
-        # ./testdir/subdir2
-        # ./testdir/subdir2/.gitkeep
-        # ./testdir/subdir3
-        # ./testdir/subdir3/subsubdir1
-        # ./testdir/subdir3/subsubdir1/b.c
-        # ./testdir/subdir3/subsubdir1/b.h
-        # ./testdir/subdir4
-        # ./testdir/subdir4/.gitkeep
-        # ./testdir/subdir5
-        # ./testdir/subdir5/a.c
-        # ./testdir/subdir5/a.h
-        # ./testdir/t1.c
-        # ./testdir/t1.h
+    print(find_files('.c', 'testdir'))
 
 def test2():
-    walk('.')
-    # lists everything in current directory + the output from test 1
+    print(find_files(".h", "testdir"))
 
 def test3():
-    walk('not_exists')
-    # should print that directory doesn't exist
+    print(find_files(".c", "testdir/t1.c"))
+
 
 if __name__ == "__main__":
     test1()
